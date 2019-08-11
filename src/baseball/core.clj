@@ -17,7 +17,8 @@
                         slurp
                         hi/parse
                         hi/as-hickory)]
-    (his/select (his/descendant (his/tag :a)) hickory-fmt)))
+    (let [elements (his/select (his/descendant (his/tag :a)) hickory-fmt)]
+      (map :content elements))))
 
 
 ; (def html "<a href=\"foo.php\">foo</a>")
