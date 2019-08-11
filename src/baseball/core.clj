@@ -3,8 +3,7 @@
 (ns baseball.core
   (:require [clojure.string :as str]
             [hickory.core :as hi]
-            [hickory.select :as his]
-            [hickory.zip :as hiz]))
+            [hickory.select :as his]))
 
 (defn game-day-url
   [level year month day]
