@@ -21,7 +21,7 @@
   [url]
   (->> url
        parse-html
-       (his/select (his/descendant (his/tag :a)))
+       (his/select (his/descendant (his/tag :li) (his/tag :a)))
        (map :content)
        (map first) ; Pull string out of vector
        (filter #(str/includes? %1 "gid_"))
