@@ -11,7 +11,7 @@
   (str "http://gd2.mlb.com/components/game/" level "/year_" year "/month_" month "/day_" day))
 (comment (slurp (game-day-url "mlb" "2018" "06" "10")))
 
-(defn hickory-read
+(defn parse-html
   [url]
   (-> url
       slurp
@@ -21,7 +21,7 @@
 (defn game-day-links
   [url]
   (->> url
-       hickory-read
+       parse-html
        (his/select (his/descendant (his/tag :a)))
        (map :content)
        (map first) ; Pull string out of vector
