@@ -17,26 +17,8 @@
                         slurp
                         hi/parse
                         hi/as-hickory)]
-    ; (let [selected (his/select (his/descendant (his/tag :a)) hickory-fmt)]
-    ;   (map :content selected))))
     (->> hickory-fmt
          (his/select (his/descendant (his/tag :a)))
          (map (comp first :content))
          (filter #(str/includes? %1 "gid_"))
-         (map str/trim))))
-
-
-
-; (def html "<a href=\"foo.php\">foo</a>")
-; (def parsed (hi/parse html)) => Document
-; (def as (hi/as-hickory parsed)) => map
-; (def zipped (hiz/hickory-zip (hi/as-hickory parsed))) => vector
-
-
-  ; (-> (s/select (s/child (s/class "subCalender") ; sic
-  ;                        (s/tag :div)
-  ;                        (s/id :raceDates)
-  ;                        s/first-child
-  ;                        (s/tag :b))
-  ;               site-htree)
-  ;     first :content first string/trim)
+         (map (comp #(str url "/" %1) str/trim)))))
