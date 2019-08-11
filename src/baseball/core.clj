@@ -19,6 +19,8 @@
                         hi/as-hickory)]
     (->> hickory-fmt
          (his/select (his/descendant (his/tag :a)))
-         (map (comp first :content))
+         (map :content)
+         (map first) ; Pull string out of vector
          (filter #(str/includes? %1 "gid_"))
-         (map (comp #(str url "/" %1) str/trim)))))
+         (map str/trim)
+         (map #(str url "/" %1)))))
