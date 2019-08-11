@@ -21,8 +21,9 @@
     ;   (map :content selected))))
     (->> hickory-fmt
          (his/select (his/descendant (his/tag :a)))
-         (map :content)
-         (filter #(str/includes? %1 "gid_")))))
+         (map (comp first :content)))))
+         ;(filter #(str/includes? %1 "gid_"))
+         ;(map (comp str/trim first)))))
 
 
 
