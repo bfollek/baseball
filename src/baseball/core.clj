@@ -2,7 +2,7 @@
 
 (ns baseball.core
   (:require [clojure.string :as str]
-            [hickory.core :as hi]
+            [hickory.core :as hic]
             [hickory.select :as his]))
 
 (defn- game-day-url
@@ -13,8 +13,8 @@
   [url]
   (-> url
       slurp
-      hi/parse
-      hi/as-hickory))
+      hic/parse
+      hic/as-hickory))
 
 (defn- game-day-links
   [url]
