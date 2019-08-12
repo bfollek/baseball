@@ -12,7 +12,7 @@
 (deftest game-day-links-test
   (testing "game-day-links"
     (let [f #'baseball.core/game-day-links
-          result (f known-url)]
+          result (sort (f known-url))]
       (is (= 15 (count result)))
-      (is (= "http://gd2.mlb.com/components/game/mlb/year_2018/month_06/day_10/gid_2018_06_10_anamlb_minmlb_1/" (first result)))
-      (is (= "http://gd2.mlb.com/components/game/mlb/year_2018/month_06/day_10/gid_2018_06_10_slnmlb_cinmlb_1/" (last result))))))
+      (is (= (str known-url "/gid_2018_06_10_anamlb_minmlb_1/") (first result)))
+      (is (= (str known-url "/gid_2018_06_10_slnmlb_cinmlb_1/") (last result))))))

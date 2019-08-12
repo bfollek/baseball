@@ -25,5 +25,4 @@
        (map first) ; Pull string out of vector
        (filter #(str/includes? %1 "gid_"))
        (map str/trim)
-       (map #(str url "/" %1))
-       sort))
+       (map #(str url "/" %1))))
