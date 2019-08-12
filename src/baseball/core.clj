@@ -34,4 +34,8 @@
   (-> url
       slurp
       (str/replace "&" "&amp;") ; Fix invalid ampersands
-      xml/parse-str))
+      xml/parse-str
+      :attrs
+      (select-keys [:game_pk :game_type :venue :venue_w_chan_loc :time :time_zone :ampm
+                    :home_team_id :home_team_city :home_team_name :home_league_id
+                    :away_team_id :away_team_city :away_team_name :away_league_id])))
