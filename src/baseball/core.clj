@@ -43,3 +43,13 @@
                     :game_pk :game_type
                     :home_league_id :home_team_city :home_team_id :home_team_name
                     :time :time_zone :venue :venue_w_chan_loc])))
+
+(defn- linescores
+  [games]
+  (->> games
+       (map #(str %1 "linescore.xml"))
+       (pmap linescore-parse)))
+
+(comment (def url (game-day-url "mlb" "2018" "06" "10")))
+(comment (def games (game-day-links url)))
+(comment (def ls (linescores games)))

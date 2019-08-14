@@ -10,6 +10,7 @@ pom.xml.asc
 .hgignore
 .hg/
 
+.clj-kondo
 .DS_Store
 .eastwood
 clint.out
