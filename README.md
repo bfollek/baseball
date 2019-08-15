@@ -1,9 +1,10 @@
 # baseball
 
 Adapted from the rust code in
-https://tht.fangraphs.com/baseball-coding-with-rust-intro/
-https://tht.fangraphs.com/baseball-coding-with-rust-part-2/
-https://tht.fangraphs.com/baseball-coding-with-rust-part-3/
+
+* https://tht.fangraphs.com/baseball-coding-with-rust-intro/
+* https://tht.fangraphs.com/baseball-coding-with-rust-part-2/
+* https://tht.fangraphs.com/baseball-coding-with-rust-part-3/
 
 ## Benchmarking
 
