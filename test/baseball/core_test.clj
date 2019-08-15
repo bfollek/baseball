@@ -29,5 +29,11 @@
 (deftest linescores-test
   (testing "linescores basics"
     (let [f #'baseball.core/linescores
-          venues (map :venue (f (#'baseball.core/game-day-links known-url)))]
-      (is (>= 0 (rh/coll-index venues "Marlins Field"))))))
+          venues (->> known-url
+                      (#'baseball.core/game-day-links)
+                      f
+                      (map :venue))]
+      (is (>= (rh/coll-index venues "Target Field") 0))
+      (is (>= (rh/coll-index venues "Great American Ball Park") 0))
+      (is (>= (rh/coll-index venues "Marlins Park") 0))
+      (is (= (rh/coll-index venues "No Such Field") -1)))))
