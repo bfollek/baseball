@@ -5,5 +5,6 @@
             :url "https://www.eclipse.org/legal/epl-2.0/"}
   :dependencies [[org.clojure/clojure "1.10.0"]
                  [org.clojure/data.xml "0.0.8"]
-                 [hickory "0.7.1"]]
+                 [hickory "0.7.1"]
+                 [org.clojars.bfollek/rabbithole "0.2.2-SNAPSHOT"]]
   :repl-options {:init-ns baseball.core})

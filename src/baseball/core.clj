@@ -1,7 +1,3 @@
-;;;; Adapted from
-;;;; https://tht.fangraphs.com/baseball-coding-with-rust-intro/
-;;;; https://tht.fangraphs.com/baseball-coding-with-rust-part-2/
-
 (ns baseball.core
   (:require [clojure.string :as str]
             [clojure.data.xml :as xml]
@@ -50,11 +46,16 @@
       (str "linescore.xml")
       linescore-parse))
 
-(defn- linescores
+(defn- linescores-strategy
   "`f` should be `map` or `pmap`"
   [games f]
   (f linescore-get games))
 
+(defn- linescores
+  [games]
+  (linescores-strategy games pmap))
+
+(comment (require :reload '[baseball.core :as bb]))
 (comment (def url (game-day-url "mlb" "2018" "06" "10")))
 (comment (def games (game-day-links url)))
-(comment (def ls (linescores games pmap)))
+(comment (def ls (linescores games)))
