@@ -1,6 +1,6 @@
 # baseball
 
-Adapted from the rust code in
+Fetch and reshape a bunch of major league baseball game data. Adapted from the rust code in
 
 * https://tht.fangraphs.com/baseball-coding-with-rust-intro/
 * https://tht.fangraphs.com/baseball-coding-with-rust-part-2/
