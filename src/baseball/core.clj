@@ -56,14 +56,17 @@
 (defn- boxscore-html
   "Drill down through the xml till we get the string of html."
   [url] ; http://gd2.mlb.com/components/game/mlb/year_2018/month_06/day_10/gid_2018_06_10_anamlb_minmlb_1/boxscore.xml
-  (->> (-> url
-           slurp
-           xml/parse-str
-           :content)
-       (filter #(= (:tag %) :game_info))
-       first
-       :content
-       first))
+  (->>
+   ; Get a vector of maps
+   (-> url
+       slurp
+       xml/parse-str
+       :content)
+   ; Find the map that has {:tag :game_info}
+   (filter #(= (:tag %) :game_info))
+   first
+   :content
+   first))
 
 (defn- boxscore-parse
   [url]
