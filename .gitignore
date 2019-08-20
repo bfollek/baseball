@@ -16,3 +16,4 @@ pom.xml.asc
 clint.out
 scratch*
 TODO
+*.xml

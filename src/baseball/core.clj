@@ -31,7 +31,6 @@
   [url]
   (-> url
       slurp
-      (str/replace "&" "&amp;") ; Fix invalid ampersands
       xml/parse-str
       :attrs
       (select-keys [:ampm
@@ -55,7 +54,31 @@
   [games]
   (linescores-strategy games pmap))
 
+(defn- boxscore-parse
+  ;; http://gd2.mlb.com/components/game/mlb/year_2018/month_06/day_10/gid_2018_06_10_anamlb_minmlb_1/boxscore.xml
+  [url]
+  ;; Drill down through the xml till we get the string of html we want.
+  (let [boxscore-content (-> url
+                             slurp
+                             xml/parse-str
+                             :content)
+        game-info (first (filter #(= (:tag %) :game_info) boxscore-content))
+        html (first (:content game-info))]
+    html))
+
+(defn- boxscore-get
+  [game]
+  (-> game
+      (str "boxscore.xml")
+      boxscore-parse))
+
+(defn- boxscores
+  [games]
+  (pmap boxscore-get games))
+
 (comment (require :reload '[baseball.core :as bb]))
 (comment (def url (game-day-url "mlb" "2018" "06" "10")))
 (comment (def games (game-day-links url)))
+(comment (def game (first games)))
+(comment (boxscore-get game))
 (comment (def ls (linescores games)))
