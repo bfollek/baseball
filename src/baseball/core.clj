@@ -27,8 +27,7 @@
        (map #(str url "/" %1))))
 
 (defn- linescore-parse
-  ;; http://gd2.mlb.com/components/game/mlb/year_2018/month_06/day_10/gid_2018_06_10_anamlb_minmlb_1/linescore.xml
-  [url]
+  [url] ; http://gd2.mlb.com/components/game/mlb/year_2018/month_06/day_10/gid_2018_06_10_anamlb_minmlb_1/linescore.xml
   (-> url
       slurp
       xml/parse-str
@@ -54,17 +53,21 @@
   [games]
   (linescores-strategy games pmap))
 
+(defn- boxscore-html
+  "Drill down through the xml till we get the string of html."
+  [url] ; http://gd2.mlb.com/components/game/mlb/year_2018/month_06/day_10/gid_2018_06_10_anamlb_minmlb_1/boxscore.xml
+  (->> (-> url
+           slurp
+           xml/parse-str
+           :content)
+       (filter #(= (:tag %) :game_info))
+       first
+       :content
+       first))
+
 (defn- boxscore-parse
-  ;; http://gd2.mlb.com/components/game/mlb/year_2018/month_06/day_10/gid_2018_06_10_anamlb_minmlb_1/boxscore.xml
   [url]
-  ;; Drill down through the xml till we get the string of html we want.
-  (let [boxscore-content (-> url
-                             slurp
-                             xml/parse-str
-                             :content)
-        game-info (first (filter #(= (:tag %) :game_info) boxscore-content))
-        html (first (:content game-info))]
-    html))
+  (boxscore-html url))
 
 (defn- boxscore-get
   [game]
