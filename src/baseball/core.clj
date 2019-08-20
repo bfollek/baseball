@@ -15,6 +15,12 @@
       hic/parse
       hic/as-hickory))
 
+(defn- parse-xml
+  [url]
+  (-> url
+      slurp
+      xml/parse-str))
+
 (defn- game-day-links
   [url]
   (->> url
@@ -29,8 +35,7 @@
 (defn- linescore-parse
   [url] ; http://gd2.mlb.com/components/game/mlb/year_2018/month_06/day_10/gid_2018_06_10_anamlb_minmlb_1/linescore.xml
   (-> url
-      slurp
-      xml/parse-str
+      parse-xml
       :attrs
       (select-keys [:ampm
                     :away_league_id :away_team_city :away_team_id :away_team_name
@@ -59,8 +64,7 @@
   (->>
    ; Get a vector of maps
    (-> url
-       slurp
-       xml/parse-str
+       parse-xml
        :content)
    ; Find the map that has {:tag :game_info}
    (filter #(= (:tag %) :game_info))
