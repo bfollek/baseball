@@ -4,6 +4,7 @@
             [rabbithole.core :as rh]))
 
 (def ^{:private true} known-url "http://gd2.mlb.com/components/game/mlb/year_2018/month_06/day_10")
+(def ^{:private true} boxscores-url (str known-url "/gid_2018_06_10_anamlb_minmlb_1/boxscore.xml"))
 (def ^{:private true} linescores-url (str known-url "/gid_2018_06_10_anamlb_minmlb_1/linescore.xml"))
 
 (deftest game-day-url-test
@@ -37,3 +38,22 @@
       (is (>= (rh/coll-index venues "Great American Ball Park") 0))
       (is (>= (rh/coll-index venues "Marlins Park") 0))
       (is (= (rh/coll-index venues "No Such Field") -1)))))
+
+(deftest boxscore-parse-test
+  (testing "boxscore-parse basics"
+    (let [f #'baseball.core/boxscore-parse
+          result (f boxscores-url)]
+      (is (= "14" (:wind-speed result)))
+      (is (= "In from LF" (:weather-condition result))))))
+
+(deftest boxscores-test
+  (testing "boxscores basics"
+    (let [f #'baseball.core/boxscores
+          atts (->> known-url
+                    (#'baseball.core/game-day-links)
+                    f
+                    (map :attendance))]
+      (is (>= (rh/coll-index atts "35705") 0))
+      (is (>= (rh/coll-index atts "19344") 0))
+      (is (>= (rh/coll-index atts "47711") 0))
+      (is (= (rh/coll-index atts "No Such Attendance") -1)))))

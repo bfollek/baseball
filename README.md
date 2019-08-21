@@ -2,8 +2,8 @@
 
 Fetch and reshape a bunch of major league baseball game data. Adapted from the rust code in
 
-* https://tht.fangraphs.com/baseball-coding-with-rust-intro/
-* https://tht.fangraphs.com/baseball-coding-with-rust-part-2/
+* https://tht.fangraphs.com/baseball-coding-with-rust-intro/ - Done
+* https://tht.fangraphs.com/baseball-coding-with-rust-part-2/ - Done
 * https://tht.fangraphs.com/baseball-coding-with-rust-part-3/
 
 ## Benchmarking

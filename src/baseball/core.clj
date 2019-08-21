@@ -79,9 +79,13 @@
         ;; <b>Weather</b>: 69 degrees, overcast.<br/>
         [_ weather-temp weather-condition] (re-find #"Weather.*\s+(\d+).*,\s+((\w|\s)+)\." html)
         ;; <b>Wind</b>: 14 mph, In from LF.<br/>
-        [_ wind-speed wind-direction] (re-find #"Wind.*\s+(\d+).*,\s+((\w|\s)+)\." html)]
-    ;;  <b>Att</b>: 28,656.<br/>
-    {:weather-condition weather-condition :weather-temp weather-temp
+        [_ wind-speed wind-direction] (re-find #"Wind.*\s+(\d+).*,\s+((\w|\s)+)\." html)
+        ;;  <b>Att</b>: 28,656.<br/>
+        ;; Att is optional. It may not be in the html.
+        ;; In that case, it'll end up as nil.
+        [_ att1 att2] (re-find #"Att.*\s+(\d+),?(\d+)\." html)]
+    {:attendance (str att1 att2)
+     :weather-condition weather-condition :weather-temp weather-temp
      :wind-direction wind-direction :wind-speed wind-speed}))
 
 (defn- boxscore-get
@@ -99,4 +103,5 @@
 (comment (def games (game-day-links url)))
 (comment (def game (first games)))
 (comment (boxscore-get game))
+(comment (def bs (boxscores games)))
 (comment (def ls (linescores games)))
