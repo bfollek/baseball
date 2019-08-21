@@ -74,7 +74,15 @@
 
 (defn- boxscore-parse
   [url]
-  (boxscore-html url))
+  (let [html (boxscore-html url)
+        ;; I'm getting nowhere wit hickory.select, and the content strings would need parsing anyway, so...
+        ;; <b>Weather</b>: 69 degrees, overcast.<br/>
+        [_ weather-temp weather-condition] (re-find #"Weather.*\s+(\d+).*,\s+((\w|\s)+)\." html)
+        ;; <b>Wind</b>: 14 mph, In from LF.<br/>
+        [_ wind-speed wind-direction] (re-find #"Wind.*\s+(\d+).*,\s+((\w|\s)+)\." html)]
+    ;;  <b>Att</b>: 28,656.<br/>
+    {:weather-condition weather-condition :weather-temp weather-temp
+     :wind-direction wind-direction :wind-speed wind-speed}))
 
 (defn- boxscore-get
   [game]
