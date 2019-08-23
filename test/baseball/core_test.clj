@@ -34,10 +34,10 @@
                       (#'baseball.core/game-day-links)
                       f
                       (map :venue))]
-      (is (>= (rh/coll-index venues "Target Field") 0))
-      (is (>= (rh/coll-index venues "Great American Ball Park") 0))
-      (is (>= (rh/coll-index venues "Marlins Park") 0))
-      (is (= (rh/coll-index venues "No Such Field") -1)))))
+      (is (>= (rh/index-of venues "Target Field") 0))
+      (is (>= (rh/index-of venues "Great American Ball Park") 0))
+      (is (>= (rh/index-of venues "Marlins Park") 0))
+      (is (= (rh/index-of venues "No Such Field") -1)))))
 
 (deftest boxscore-parse-test
   (testing "boxscore-parse basics"
@@ -53,7 +53,7 @@
                     (#'baseball.core/game-day-links)
                     f
                     (map :attendance))]
-      (is (>= (rh/coll-index atts "35705") 0))
-      (is (>= (rh/coll-index atts "19344") 0))
-      (is (>= (rh/coll-index atts "47711") 0))
-      (is (= (rh/coll-index atts "No Such Attendance") -1)))))
+      (is (>= (rh/index-of atts "35705") 0))
+      (is (>= (rh/index-of atts "19344") 0))
+      (is (>= (rh/index-of atts "47711") 0))
+      (is (= (rh/index-of atts "No Such Attendance") -1)))))
